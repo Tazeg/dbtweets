@@ -16,6 +16,11 @@ Please, read and agree the [Twitter Developer Agreement and Policy](https://deve
 
 ### Install
 
+```
+git clone https://github.com/Tazeg/dbtweets.git
+cd dbtweets
+```
+
 - Create a local directory for the Neo4j database :
 
 ```
@@ -23,7 +28,7 @@ mkdir /home/user/neo4j
 ```
 
 - Rename `docker/twitter/src/.env.sample` to `.env` and edit it.
-- Update the Neo4j volume path in `docker/docker-compose.yml` according to the directory you created on the previous command
+- Update the Neo4j volume path in `docker-compose.yml` according to the directory you created on the previous command
 
 
 ### Run
@@ -41,7 +46,7 @@ Go to :
 
 ### Sample Neo4j queries
 
-You just have to copy/past into the Neo4j dashboard :
+You just have to copy/paste into the Neo4j dashboard :
 
 How many users in database :
 ```
@@ -65,6 +70,15 @@ Tweets having coordinates :
 MATCH (u:User)-[:POSTS]->(t:Tweet) 
 WHERE t.latitude<>0 AND t.longitude<>0 
 RETURN u,t
+```
+
+Searching strings in tweets :
+```
+MATCH (u:User)-[]->(t:Tweet) 
+WHERE toLower(t.text) CONTAINS 'car'
+RETURN t.created_at_YMD, t.created_at_HIS, u.screen_name,t.text
+ORDER BY t.created_at_YMD DESC, t.created_at_HIS DESC
+LIMIT 20
 ```
 
 Hashtags and counts :
