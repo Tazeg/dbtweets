@@ -1,0 +1,11 @@
+FROM node
+RUN apt-get update
+
+RUN apt-get install nano
+ENV TERM xterm
+
+COPY src /usr/src/app
+WORKDIR /usr/src/app
+RUN npm install
+
+CMD ["npm", "run", "stream"]

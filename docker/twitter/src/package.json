@@ -1,0 +1,19 @@
+{
+  "name": "twitter",
+  "version": "0.0.1",
+  "description": "Vacuum tweets",
+  "private": true,
+  "scripts": {
+    "search": "node search.js",
+    "stream": "node stream.js"
+  },
+  "author": "@JeffProd",
+  "license": "SEE LICENSE IN LICENSE",
+  "dependencies": {
+    "dotenv": "^6.2.0",
+    "moment": "^2.22.2",
+    "neo4j-driver": "^1.7.2",
+    "redis": "^2.8.0",
+    "twit": "^2.2.11"
+  }
+}

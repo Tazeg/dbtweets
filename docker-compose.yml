@@ -1,0 +1,38 @@
+version: '2'
+
+services:
+
+    neo4j-twitter:
+        image: neo4j
+        ports:
+            - "7474:7474"
+            - "7687:7687"
+        volumes:
+            - "/home/user/neo4j:/data neo4j"
+        environment:
+            - "NEO4J_AUTH=neo4j/123456"
+
+    redis-twitter:
+        image: redis
+        ports:
+            - "6379:6379"
+
+    node-search:
+        build:
+            context: ./docker/twitter
+            dockerfile: Dockerfile-search
+        links:
+            - redis-twitter:redis-twitter
+
+    node-stream:
+        build:
+            context: ./docker/twitter
+            dockerfile: Dockerfile-stream
+        links:
+            - redis-twitter:redis-twitter
+
+    worker:
+        build: ./docker/worker
+        links:
+            - redis-twitter:redis-twitter
+            - neo4j-twitter:neo4j-twitter
