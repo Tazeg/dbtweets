@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
-//---------------------------------------------------------------------
+//------------------------------------------------------------------------------
+// Web     : https://jeffprod.com
+// Twitter : https://twitter.com/JeffProd
+//-----------------------------------------------------------------------------
 // Get tweets from STREAM API
 // https://developer.twitter.com/en/docs/tweets/filter-realtime/api-reference/post-statuses-filter.html
 // Save each tweet with "mysave.js"
-//---------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 require('dotenv').config();
 const Twit = require('twit');

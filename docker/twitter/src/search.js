@@ -1,10 +1,13 @@
 #!/usr/bin/env node
 
-//---------------------------------------------------------------------
+//-----------------------------------------------------------------------------
+// Web     : https://jeffprod.com
+// Twitter : https://twitter.com/JeffProd
+//-----------------------------------------------------------------------------
 // Get tweets from SEARCH API
 // https://developer.twitter.com/en/docs/tweets/search/api-reference/get-search-tweets.html
 // Save each tweet with "mysave.js"
-//---------------------------------------------------------------------
+//-----------------------------------------------------------------------------
 
 require('dotenv').config();
 const Twit = require('twit');

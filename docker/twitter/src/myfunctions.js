@@ -1,3 +1,8 @@
+//-----------------------------------------------------------------------------
+// Web     : https://jeffprod.com
+// Twitter : https://twitter.com/JeffProd
+//-----------------------------------------------------------------------------
+
 let moment = require('moment');
 
 let unixtime = function () {
