@@ -8,7 +8,7 @@ services:
             - "7474:7474"
             - "7687:7687"
         volumes:
-            - "/home/user/neo4j:/data neo4j"
+            - "/home/user/neo4j:/data"
         environment:
             - "NEO4J_AUTH=neo4j/123456"
 
