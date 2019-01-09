@@ -94,6 +94,13 @@ function addtweet_neo4j($jsontweet, $neo4j) {
         addtweet($jsontweet['retweeted_status']['user'], 'POSTS', $jsontweet['retweeted_status'], $neo4j);
         // (User)-[:RETWEETS]->(Tweet:['retweeted_status'])
         addtweet($jsontweet['user'], 'RETWEETS', $jsontweet['retweeted_status'], $neo4j);
+        // add the RT date time
+        $neo4j->run('MATCH (u:User {id_str:{user_id_str}}), (t:Tweet {id_str:{tweet_id_str}}), (u)-[r:RETWEETS]->(t) SET r.created_at_YMD={created_at_YMD}, r.created_at_HIS={created_at_HIS}', [ // edge
+            'user_id_str' => $jsontweet['user']['id_str'],
+            'tweet_id_str' => $jsontweet['retweeted_status']['id_str'],
+            'created_at_YMD' => strdate_to($jsontweet['created_at'], 'Y-m-d'),
+            'created_at_HIS' => strdate_to($jsontweet['created_at'], 'H:i:s')
+            ]);
         }
     else {
         // Not a RT
