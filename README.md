@@ -126,10 +126,10 @@ Most active users :
 ```
 MATCH (u:User)-[r:POSTS|RETWEETS]->(t:Tweet)
 RETURN u.screen_name AS screen_name,
-       COUNT(r) AS nb_tweets,
+       COUNT(r) AS tweet_or_rt_count,
        u.friends_count AS friends_count,
        u.followers_count AS followers_count
-ORDER BY nb_tweets DESC
+ORDER BY tweet_or_rt_count DESC
 LIMIT 15
 ```
 
@@ -142,6 +142,34 @@ RETURN  u.screen_name AS screen_name,
         u.friends_count AS friends_count,
         u.followers_count AS followers_count
 ORDER BY count DESC
+LIMIT 15
+```
+
+Users who RT the most :
+```
+MATCH (u:User)-[r:RETWEETS]->(t:Tweet)
+RETURN u.screen_name AS screen_name,
+       COUNT(r) AS nbRT
+ORDER BY nbRT DESC       
+LIMIT 15
+```
+
+List of RT from a given user sorted by date :
+```
+MATCH (u1:User)-[r:RETWEETS]->(t:Tweet)<-[:POSTS]-(u2:User)
+WHERE u1.id_str='123456789' 
+RETURN t.created_at_YMD + ' ' + t.created_at_HIS AS dateTweet, r.created_at_YMD + ' ' + r.created_at_HIS AS dateRT, u2.screen_name, t.text
+ORDER BY t.created_at_YMD DESC, t.created_at_HIS DESC
+LIMIT 15
+```
+
+List of the very first retweeters of a given tweet :
+```
+MATCH (u:User)-[r:RETWEETS]->(t:Tweet {id_str: '123456789'})
+RETURN t.created_at_YMD + ' ' + t.created_at_HIS AS dateTweet, r.created_at_YMD + ' ' + r.created_at_HIS AS dateRT,
+	duration.between(datetime(t.created_at_YMD + 'T' + t.created_at_HIS), datetime(r.created_at_YMD + 'T' + r.created_at_HIS)).seconds AS seconds,
+	u.screen_name AS retweeter
+ORDER BY seconds
 LIMIT 15
 ```
 
