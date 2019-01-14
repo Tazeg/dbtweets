@@ -58,6 +58,13 @@ How many tweets :
 MATCH (n:Tweet) RETURN COUNT(n)
 ```
 
+Tweets count by date :
+```
+MATCH (t:Tweet)
+RETURN t.created_at_YMD, count(*) AS nb
+ORDER BY t.created_at_YMD
+```
+
 App used to post tweets :
 ```
 MATCH (u:User)-[:POSTS|RETWEETS]->(t:Tweet) 
