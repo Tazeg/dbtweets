@@ -117,7 +117,7 @@ ORDER BY nb DESC
 Most retweeted tweets :
 ```
 MATCH (u:User)-[:POSTS]->(t:Tweet) 
-RETURN u.screen_name,t.text,t.retweet_count
+RETURN 'https://twitter.com/' + u.screen_name + '/status/' + t.id_str AS tweeturl,t.text,t.retweet_count
 ORDER BY t.retweet_count DESC LIMIT 100
 ```
 
