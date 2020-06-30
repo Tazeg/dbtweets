@@ -3,7 +3,7 @@ version: '2'
 services:
 
     neo4j-twitter:
-        image: neo4j
+        image: neo4j:3.5.18
         ports:
             - "7474:7474"
             - "7687:7687"
