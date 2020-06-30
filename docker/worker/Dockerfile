@@ -1,11 +1,10 @@
-FROM ubuntu:18.04
+FROM ubuntu:20.04
 ARG DEBIAN_FRONTEND=newt
-RUN apt-get update && apt-get -y install git unzip php7.2-cli php7.2-curl php7.2-bcmath php7.2-mbstring php7.2-json
+RUN apt-get update && apt-get -y install git unzip php7.4-cli php7.4-curl php7.4-bcmath php7.4-mbstring php7.4-json
 COPY . /usr/src/app
 WORKDIR /usr/src/app
 RUN php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
-RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'a5c698ffe4b8e849a443b120cd5ba38043260d5c4023dbf93e1558871f1f07f58274fc6f4c93bcfd858c6bd0775cd8d1') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
+RUN php -r "if (hash_file('sha384', 'composer-setup.php') === 'e0012edf3e80b6978849f5eff0d4b4e4c79ff1609dd1e613307e16318854d24ae64f26d17af3ef0bf7cfb710ca74755a') { echo 'Installer verified'; } else { echo 'Installer corrupt'; unlink('composer-setup.php'); } echo PHP_EOL;"
 RUN php composer-setup.php
 RUN php -r "unlink('composer-setup.php');"
-RUN php composer.phar install
 CMD [ "php", "./worker-redis.php" ]
